@@ -1,47 +1,59 @@
-var idade = 28;
-var gols = 1000;
-var pi = 3.14; // ponto para decimal
-var exp = 2e10; // 20000000000
+var possuiGraduacao = true;
+var possuiDoutorado = false;
 
-var soma = 100 + 50; // 150
-var subtracao = 100 - 50; // 50
-var multiplicacao = 100 * 2; // 200
-var divisao = 100 / 2; // 50
-var expoente = 2 ** 4; // 16
-var modulo = 14 % 5; // 4
+if(possuiDoutorado) {
+  console.log('Possui graduação e doutorado');
+} else if(possuiGraduacao) {
+  console.log('Possui graduação, mas não possui doutorado');
+} else {
+  console.log('Não possui graduação');
+}
+// retorna Possui Graduação, mas não possui doutorado
 
-var soma = '100' + 50; // 10050
-var subtracao = '100' - 50; // 50
-var multiplicacao = '100' * '2'; // 200
-var divisao = 'Comprei 10' / 2; // NaN (Not a Number)
 
-var numero = 80;
-var unidade = 'kg';
-var peso = numero + unidade; // '80kg'
-var pesoPorDois = peso / 2 // NaN (Not a Number)
+// Falsy
+if(false)
+if(0) // ou -0
+if(NaN)
+if(null)
+if(undefined)
+if('') // ou "" ou ``
 
-var total1 = 20 + 5 * 2; // 30
-var total2 = (20 + 5) * 2; // 50
-var total3 = 20 / 2 * 5; // 50
-var total4 = 10 + 10 * 2 + 20 / 2; // 40
 
-var incremento = 5;
-console.log(incremento++); // 5
-console.log(incremento); // 6
+// Truthy
+if(true)
+if(1)
+if(' ')
+if('andre')
+if(-5)
+if({})
 
-var incremento2 = 5;
-console.log(++incremento2); // 6
-console.log(incremento2); // 6
+10 > 5; // true
+5 > 10; // false
+20 < 10; // false
+10 <= 10 // true
+10 >= 11 // false
 
-var frase = 'Isso é um teste';
-+frase; // NaN
--frase; // NaN
+10 == '10'; // true
+10 == 10; // true
+10 === '10'; // false
+10 === 10 // true
+10 != 15 // true
+10 != '10' // false
+10 !== '10' // true
 
-var idade = '28';
-+idade; // 28 (número)
--idade; // -28 (número)
-console.log(+idade + 5); // 33 
+true && true; // true
+true && false; // false
+false && true; // false
+'Gato' && 'Cão'; // 'Cão'
+(5 - 5) && (5 + 5); // 0
+'Gato' && false; // false
+(5 >= 5) && (3 < 6); // true
 
-var possuiFaculdade = true;
-console.log(+possuiFaculdade); // 1
-
+true || true; // true
+true || false; // true
+false || true; // true
+'Gato' || 'Cão'; // 'Gato'
+(5 - 5) || (5 + 5); // 10
+'Gato' || false; // Gato
+(5 >= 5) || (3 < 6); // true
