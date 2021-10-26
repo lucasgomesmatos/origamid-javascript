@@ -5,10 +5,10 @@ let nome = "Lucas";
 let idade = 22;
 
 // Declarar uma variável com a sua comida favorita e não atribuir valor
-var pizza;
+var comidaFavorita;
 
 // Atribuir valor a sua comida favorita
-pizza = "bacon"
+comidaFavorita = "pizza"
 
 // Declarar 5 variáveis diferentes sem valores
 let num1;
@@ -17,3 +17,5 @@ let num3;
 let num4;
 let num5;
 
+
+console.log(nome, idade, comidaFavorita, num1, num2, num3, num4, num5)
