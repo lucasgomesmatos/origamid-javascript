@@ -1,19 +1,22 @@
-function Carro(marcaAtribuida, precoAtribuido) {
-  this.marca = marcaAtribuida,
-  this.preco = precoAtribuido;
-  
+function Pessoa(nome, idade) {
+  this.nome = nome;
+  this.idade = idade;
+  this.abracar = function() {
+    return 'Abraçou';
+  }
+  this.andar = function() {
+    return 'Andou pelo objeto';
+  }
 }
 
-const honda = new Carro('Honda', 3000);
-console.log(honda);
-
-
-function Carro2(marca, precoInicial) {
-  const taxa = 1.2;
-  const precoFinal = precoInicial * taxa;
-  this.marca = marca,
-  this.preco = precoFinal;
-  
+Pessoa.prototype.andar = function() {
+  return this.nome + ' Pessoa andou';
 }
 
-const ferrari = new Carro2('Ferrari', 5000)
+Pessoa.prototype.nadar = function() {
+  return this.nome + ' Pessoa nadou';
+}
+
+const lucas = new Pessoa('Lucas', 22)
+
+console.log(Pessoa.prototype);

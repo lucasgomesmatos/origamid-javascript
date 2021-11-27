@@ -1,22 +1,9 @@
-function Pessoa(nome, idade) {
-  this.nome = nome;
-  this.idade = idade;
-  this.abracar = function() {
-    return 'Abraçou';
-  }
-  this.andar = function() {
-    return 'Andou pelo objeto';
-  }
-}
+const pais = 'Brasil';
 
-Pessoa.prototype.andar = function() {
-  return this.nome + ' Pessoa andou';
-}
+const cidade = new String('Rio');
 
-Pessoa.prototype.nadar = function() {
-  return this.nome + ' Pessoa nadou';
-}
+const listaAnimais = ['cachorro', 'gato', 'cavalo']
 
-const lucas = new Pessoa('Lucas', 22)
+const lista = document.querySelectorAll('li');
 
-console.log(Pessoa.prototype);
+const listaArray = Array.prototype.slice.call(lista);
