@@ -23,6 +23,8 @@ var possuiDoutorado = false; // Falsy
 var empregoFuturo; // Falsy
 var dinheiroNaConta = 0; // Falsy
 
+console.log(!!nome, !!idade, !!possuiDoutorado, !!empregoFuturo, !!dinheiroNaConta)
+
 // Compare o total de habitantes do Brasil com China (valor em milhões)
 var brasil = 207;
 var china = 1340;
