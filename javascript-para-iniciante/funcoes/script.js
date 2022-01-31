@@ -49,7 +49,7 @@ console.log(isTypeof('Lucas'));
 // utilize essa função para mostrar no console o seu nome completo
 // quando o evento 'scroll' ocorrer.
 
-window.addEventListener('scroll', () => {
+addEventListener('scroll', () => {
   console.log('Lucas Gomes');
 })
 
