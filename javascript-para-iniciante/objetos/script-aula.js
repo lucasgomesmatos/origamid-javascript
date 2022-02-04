@@ -1,128 +1,148 @@
-// FUNÇÕES
-// Bloco de código que pode ser executado e reutilizado. Valores podem ser passados por uma função e a mesma retorna outro valor.
+// OBJETOS
 
-function areaQuadrado(lado) {
-  return lado * lado;
+/**
+ * Conjunto de variáveis e funções, que são chamadas de propriedades e métodos.
+ */
+
+ var pessoa2 = {
+  nome: 'Lucas',
+  idade: 28,
+  profissao: 'Programador',
+  possuiFaculdade: true,
 }
 
-areaQuadrado(4) // 16
-areaQuadrado(5) // 25
-areaQuadrado(2) // 4
+pessoa.nome; // 'Lucas'
+pessoa.possuiFaculdade; // true
 
-// Chamada de function declaration
+// Propriedades e métodos consistem em nome (chave) e valor
 
-function pi() {
-  return 3.14;
+
+// MÉTODOS
+
+/**
+ * É uma propriedade que possui uma função no local do seu valor.
+ */
+
+ var quadrado = {
+  lados: 4,
+  area: function(lado) {
+    return lado * lado;
+  },
+  perimetro: function(lado) {
+    return this.lados * lado;
+  },
 }
 
-var total = 5 * pi(); // 15.7
-// Parênteses () executam uma função
+quadrado.lados; // 4
+quadrado.area(5); // 25
+quadrado.perimetro(5); // 20
 
 
-// PARÂMETROS E ARGUMENTOS
-// Ao criar uma função, você pode definir parâmetros.
-// Ao executar uma função, você pode passar argumentos.
 
-// peso e altura são os parâmetros
-function imc(peso, altura) {
-  const imc = peso / (altura ** 2);
-  return imc;
+// MÉTODOS
+
+/**
+ * Abreviação de area: function() {} para area() {}, no ES6+
+ */
+
+ var quadrado = {
+  lados: 4,
+  area(lado) {
+    return lado * lado;
+  },
+  perimetro(lado) {
+    return this.lados * lado;
+  },
 }
 
-imc(80, 1.80) // 80 e 1.80 são os argumentos
-imc(60, 1.70) // 60 e 1.70 são os argumentos
-// Separar por vírgula cada parâmetro. Você pode definir mais de um parâmetro ou nenhum também
+
+// ORGANIZAR O CÓDIGO
+
+/**
+ * Objetos servem para organizar o código em pequenas partes reutilizáveis.
+ */
+
+ Math.PI; // 3.14
+ Math.random(); // número aleatório
+ 
+ var pi = Math.PI;
+ console.log(pi); // 3.14
+
+ // Math é um objeto nativo de JavaScript. Já percebeu que console é um objeto e log() um método?
 
 
-// PARÊNTESES EXECUTA A FUNÇÃO
+ // CRIAR UM OBJETO
 
-function corFavorita(cor) {
-  if(cor === 'azul') {
-    return 'Você gosta do céu';
-  } else if(cor === 'verde') {
-    return 'Você gosta de mato';
-  } else {
-    return 'Você não gosta de nada';
+ /* Um objeto é criado utilizando as chaves {} */
+var carro = {};
+// var pessoa = {};
+
+console.log(typeof carro); // 'object'
+
+// DOT NOTATION GET
+/* Acesse propriedades de um objeto utilizando o ponto . */
+
+var menu = {
+  width: 800,
+  height: 50,
+  backgroundColor: '#84E',
+}
+
+var bg = menu.backgroundColor; // '#84E'
+
+
+// DOT NOTATION SET
+/* Substitua o valor de uma propriedade utilizando . e o = após o nome da mesma. */
+
+var menu = {
+  width: 800,
+  height: 50,
+  backgroundColor: '#84E',
+}
+
+menu.backgroundColor = '#000';
+console.log(menu.backgroundColor); // '#000'
+
+// ADICIONAR PROPRIEDADES E MÉTODOS
+/* Basta adicionar um novo nome e definir o valor. */
+
+var menu = {
+  width: 800,
+}
+
+menu.height = 50;
+menu.position = 'fixed';
+
+
+// PALAVRA-CHAVE THIS
+/* this irá fazer uma referência ao próprio objeto. */
+
+var height = 120;
+var menu = {
+  width: 800,
+  height: 50,
+  metadeHeight() {
+    return this.height / 2;
   }
 }
-corFavorita(); // retorna 'Você não gosta de nada'
-// Se apenas definirmos a função com o function e não executarmos a mesma, nada que estiver dentro dela irá acontecer
 
+menu.metadeHeight(); // 25
+// sem o this, seria 60
 
-// ARGUMENTOS PODEM SER FUNÇÕES
-// Chamadas de Callback, geralmente são funções que ocorrem após algum evento.
+// this irá retornar o próprio objeto
 
-addEventListener('click', function() {
-  console.log('Clicou');
-});
-// A função possui dois argumentos
-// Primeiro é a string 'click'
-// Segundo é uma função anônima
-// Funções anônimas são aquelas em que o nome da função não é definido, escritas como function() {} ou () => {}
+// PROTÓTIPO E HERANÇA
+/* O objeto herda propriedades e métodos do objeto que foi utilizado para criar o mesmo. */
 
-
-// PODE OU NÃO RETORNAR UM VALOR
-// Quando não definimos o return, ela irá retornar undefined. O código interno da função é executado normalmente, independente de existir valor de return ou não.
-
-function imc(peso, altura) {
-  const imc = peso / (altura ** 2);
-  console.log(imc);
+var menu = {
+  width: 800,
 }
 
-imc(80, 1.80); // retorna o imc
-console.log(imc(80, 1.80)); // retorna o imc e undefined
+menu.hasOwnProperty('width') // true
+menu.hasOwnProperty('height') // false
+
+// hasOwnProperty é um método de Object
 
 
-// VALORES RETORNADOS
-// Uma função pode retornar qualquer tipo de dado e até outras funções.
 
-function terceiraIdade(idade) {
-  if(typeof idade !== 'number') {
-    return 'Informe a sua idade!';
-  } else if(idade >= 60) {
-    return true;
-  } else {
-    return false;
-  }
-}
-// Cuidado, retornar diferentes tipos de dados na mesma função não é uma boa ideia.
-
-
-// ESCOPO
-// Variáveis e funções definidas dentro de um bloco {}, não são visíveis fora dele.
-
-function precisoVisitar(paisesVisitados) {
-  var totalPaises = 193;
-  return `Ainda faltam ${totalPaises - paisesVisitados} paises para visitar`
-}
-console.log(totalPaises); // erro, totalPaises não definido
-
-
-// ESCOPO LÉXICO
-// Funções conseguem acessar variáveis que foram criadas no contexto pai
-
-var profissao = 'Designer';
-
-function dados() {
-  var nome = 'André';
-  var idade = 28;
-  function outrosDados() {
-    var endereco = 'Rio de Janeiro';
-    var idade = 29;
-    return `${nome}, ${idade}, ${endereco}, ${profissao}`;
-  }
-  return outrosDados();
-}
-
-dados(); // Retorna 'André, 29, Rio de Janeiro, Designer'
-outrosDados(); // retorna um erro
-
-// HOISTING
-// Antes de executar uma função, o JS 'move' todas as funções declaradas para a memória
-
-imc(80, 1.80); // imc aparece no console
-
-function imc(peso, altura) {
-  const imc = peso / (altura ** 2);
-  console.log(imc);
-}
+ 
