@@ -23,6 +23,6 @@ for(let i = 0; i < frutas.length; i++ ) {
 // Coloque a última fruta da array acima em uma variável,
 // sem remover a mesma da array.
 
-const fruta = frutas[frutas.length - 1]
+const ultimaFruta = frutas[frutas.length - 1]
 
 console.log(fruta)
