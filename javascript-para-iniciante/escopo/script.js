@@ -5,3 +5,5 @@ function mostrarCarro() {
 
 mostrarCarro(); // fusca no console
 console.log(carro); // Erro, carro is not defined
+
+
