@@ -16,6 +16,6 @@ const primeiroh2 = document.querySelector('.animais-descricao h2');
 console.log(primeiroh2)
 
 // Selecione o último p do site
-const ultimoParagrafo = document.querySelectorAll('p:last-child');
+const ultimoParagrafo = document.querySelectorAll('p');
 console.log(ultimoParagrafo[ultimoParagrafo.length - 1])
 
