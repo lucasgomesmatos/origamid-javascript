@@ -1,82 +1,52 @@
-// forEach e Arrow Function
+// CLASSLIST
+
+// Retorna uma lista com as classes do elemento. Permite adicionar, remover e verificar se contém.
+
+const menu = document.querySelector('.menu');
+
+menu.className; // string
+menu.classList; // lista de classes
+menu.classList.add('ativo');
+menu.classList.add('ativo', 'mobile'); // duas classes
+menu.classList.remove('ativo');
+menu.classList.toggle('ativo'); // adiciona/remove a classe
+menu.classList.contains('ativo'); // true ou false
+menu.classList.replace('ativo', 'inativo');
 
 
-// FOREACH
-//Constantemente vamos selecionar uma lista de itens do dom. A melhor forma para interagirmos com os mesmos é utilizando o método forEach.
+// ATTRIBUTES
+// Retorna uma array-like com os atributos do elemento.
 
-const imgs = document.querySelectorAll('img');
+const animais = document.querySelector('.animais');
 
-imgs.forEach(function(item){
-  console.log(item);
-});
-
-
-// PARÂMETROS DO FOREACH
-// O primeiro parâmetro é o callback, ou seja, a função que será ativada a cada item. Esse função pode receber três parâmetros: valorAtual, index e array;
-
-const imgs1 = document.querySelectorAll('img');
-
-imgs1.forEach(function(valorAtual, index, array){
-  console.log(item); // o item atual no loop
-  console.log(index); // o número do index
-  console.log(array); // a Array completa
-});
+animais.attributes; // retorna todos os atributos
+animais.attributes[0]; // retorna o primeiro atributo
 
 
+// GETATTRIBUTE E SETATTRIBUTE
+// Métodos que retornam ou definem de acordo com o atributo selecionado
 
-// FOREACH E ARRAY
-// forEach é um método de Array, alguns objetos array-like possuem este método. Caso não possua, o ideal é transformá-los em uma array.
+const img = document.querySelector('img');
 
-const titulos = document.getElementsByClassName('titulo');
-const titulosArray = Array.from(titulos);
+img.getAttribute('src'); // valor do src
+img.setAttribute('alt', 'Texto Alternativo'); // muda o alt
+img.hasAttribute('id'); // true / false
+img.removeAttribute('alt'); // remove o alt
 
-titulosArray.forEach(function(item){
-  console.log(item);
-});
+img.hasAttributes(); // true / false se tem algum atributo
 
-
-// ARROW FUNCTION
-// Sintaxe curta em relação a function expression. Basta remover a palavra chave function e adicionar a fat arrow => após os argumentos.
-
-const imgs2 = document.querySelectorAll('img');
-
-imgs2.forEach((item) => {
-  console.log(item);
-});
+// É muito comum métodos de get e set;
 
 
-// ARGUMENTOS E PARÊNTESES
+// READ ONLY VS WRITABLE
 
-const imgs4 = document.querySelectorAll('img');
+const animais2 = document.querySelector('.animais');
 
-// argumento único não precisa de parênteses
-imgs4.forEach(item => {
-  console.log(item);
-});
+animais2.className; // string com o nome das classes
+animais2.className = 'azul'; // substitui completamente a string
+animais2.className += ' vermelho'; // adiciona vermelho à string
 
-// multiplos argumentos precisam de parênteses
-imgs4.forEach((item, index) => {
-  console.log(item, index);
-});
-
-// sem argumentos precisa dos parênteses, mesmo vazio
-let i = 0;
-imgs4.forEach(() => {
-  console.log(i++);
-});
-// É melhor utilizar os parênteses
+animais2.attributes = 'class="ativo"'; // não funciona, read-only
 
 
-
-// RETURN
-// É possível omitir as chaves {} para uma função que retorna uma linha.
-
-const imgs5 = document.querySelectorAll('img');
-
-imgs5.forEach(item => 
-  console.log(item)
-);
-
-imgs5.forEach(item => console.log(item));
-
-// Não é permitido fechar a linha com ;
+// Lembre-se que podemos modificar o valor de uma propriedade objeto.propriedade = ''
