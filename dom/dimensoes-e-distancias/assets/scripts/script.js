@@ -36,7 +36,7 @@ links.forEach((link) => {
   if(linkwidth >= 48 && linkHeight >= 48) {
     console.log(link, 'Possui boa acessibilidade');
   }else {
-    console.log(link, 'Não possui uma boa acessibilidade');
+    console.log(link, 'Não possui boa acessibilidade');
   }
 });
 
