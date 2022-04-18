@@ -61,7 +61,7 @@ const initScrollSuave = () => {
   );
 };
 
-const animaScroll = () => {
+const initScroll = () => {
   const sections = document.querySelectorAll(".js-scroll");
   if (sections.length) {
     const windowMetado = window.innerHeight * 0.6;
@@ -69,7 +69,7 @@ const animaScroll = () => {
     function animaScroll() {
       sections.forEach((section) => {
         const sectionTop = section.getBoundingClientRect().top;
-        const isSectionVisible = sectionTop - windowMetado < 0;
+        const isSectionVisible = (sectionTop - windowMetado) < 0;
         if (isSectionVisible) {
           section.classList.add("ativo");
         } else {
@@ -85,4 +85,4 @@ const animaScroll = () => {
 initTabNav();
 initAccordionList();
 initScrollSuave();
-animaScroll();
+initScroll();
