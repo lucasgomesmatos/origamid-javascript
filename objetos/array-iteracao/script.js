@@ -36,6 +36,10 @@ console.log(numerosMaiores)
 // da lista de instrumentos e retorne true
 const instrumentos = ['Guitarra', 'Baixo', 'Bateria', 'Teclado']
 
+const temBaixo = instrumentos.some(item => item === 'Baixo');
+
+console.log(temBaixo)
+
 
 // Retorne o valor total das compras
 const compras = [
@@ -60,3 +64,11 @@ const compras = [
     preco: 'R$ 10,60'
   }
 ]
+
+const valorCompras = compras.reduce((acumulador, compra) => {
+  const precoLimpo = Number(compra.preco.replace("R$", "").replace(",", "."))
+  return acumulador + precoLimpo
+  
+}, 0)
+
+console.log(valorCompras)
