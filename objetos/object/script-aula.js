@@ -1,174 +1,235 @@
-// FUNCTION
+// Todo objeto é criado com o construtor Object e por isso herda as propriedades e métodos do seu prototype.
 
-// Toda função é criada com o construtor Function e por isso herda as suas propriedades e métodos.
-
-function areaQuadrado(lado) {
-  return lado * lado;
-}
-
-const perimetroQuadrado = new Function('lado', 'return lado * 4');
-
-// PROPRIEDADES
-// Function.length retorna o total de argumentos da função. Function.name retorna uma string com o nome da função.
-
-function somar(n1, n2) {
-  return n1 + n2;
-}
-
-somar.length; // 2
-somar.name; // 'somar'
-
-
-// FUNCTION.CALL()
-// function.call(this, arg1, arg2, ...) executa a função, sendo possível passarmos uma nova referência ao this da mesma.
 
 const carro = {
   marca: 'Ford',
-  ano: 2018
+  ano: 2018,
 }
 
-function descricaoCarro() {
-  console.log(this.marca + ' ' + this.ano);
-}
-
-descricaoCarro() // undefined undefined
-descricaoCarro.call() // undefined undefined
-descricaoCarro.call(carro) // Ford 2018
+const pessoa = new Object({
+  nome: 'André',
+  idade: 28,
+})
 
 
-// THIS
-// O valor de this faz referência ao objeto criado durante a construção do objeto (Constructor Function). Podemos trocar a referência do método ao this, utilizando o call().
-
-const carros = ['Ford', 'Fiat', 'VW'];
-
-carros.forEach((item) => {
-  console.log(item);
-}); // Log de cada Carro
-
-carros.forEach.call(carros, (item) => {
-  console.log(item);
-}); // Log de cada Carro
-
-const frutas = ['Banana', 'Pêra', 'Uva'];
-
-carros.forEach.call(frutas, (item) => {
-  console.log(item);
-}); // Log de cada Fruta
-
-
-// EXEMPLO REAL
-
-function Dom(seletor) {
-  this.element = document.querySelector(seletor);
-};
-
-Dom.prototype.ativo = function(classe) {
-  this.element.classList.add(classe);
-};
-
-const lista = new Dom('ul');
-lista.ativo('ativar');
-console.log(lista);
-
-// O OBJETO DEVE SER PARECIDO
-// O novo valor de this deve ser semelhante a estrutura do valor do this original do método. Caso contrário o método não conseguirá interagir de forma correta com o novo this.
-
-const novoSeletor = {
-  element: document.querySelector('li')
-}
-
-Dom.prototype.ativo.call(novoSeletor, 'ativar');
-
-
-// ARRAY'S E CALL
-// É comum utilizarmos o call() nas funções do protótipo do construtor Array. Assim podemos estender todos os métodos de Array à objetos que se parecem com uma Array (array-like).
-
-Array.prototype.mostreThis = function() {
-  console.log(this);
-}
-
-const frutas2 = ['Uva', 'Maçã', 'Banana'];
-frutas.mostreThis(); // ['Uva', 'Maçã', 'Banana']
-
-Array.prototype.pop.call(frutas2); // Remove Banana
-frutas2.pop(); // Mesma coisa que a função acima
-
-
-// ARRAY-LIKE
-// HTMLCollection, NodeList e demais objetos do Dom, são parecidos com uma array. Por isso conseguimos utilizar os mesmos na substituição do this em call.
-
-const li = document.querySelectorAll('li');
-
-const filtro = Array.prototype.filter.call(li, function(item) {
-  return item.classList.contains('ativo');
-});
-
-filtro; // Retorna os itens que possuem ativo
-
-
-// FUNCTION.APPLY()
-// O apply(this, [arg1, arg2, ...]) funciona como o call, a única diferença é que os argumentos da função são passados através de uma array.
-
-const numeros = [3,4,6,1,34,44,32];
-Math.max.apply(null, numeros);
-Math.max.call(null, 3, 4, 5, 6, 7, 20);
-
-// Podemos passar null para o valor
-// de this, caso a função não utilize
-// o objeto principal para funcionar
-
-// APPLY VS CALL
-// A única diferença é a array como segundo argumento.
-
-const li2 = document.querySelectorAll('li');
-
-function itemPossuiAtivo(item) {
-  return item.classList.contains('ativo');
-}
-
-const filtro1 = Array.prototype.filter.call(li2, itemPossuiAtivo);
-const filtro2 = Array.prototype.filter.apply(li2, [itemPossuiAtivo]);
-
-// FUNCTION.BIND()
-// Diferente de call e apply, bind(this, arg1, arg2, ...) não irá executar a função mas sim retornar a mesma com o novo contexto de this.
-
-const li3 = document.querySelectorAll('li');
-
-const filtrarLi = Array.prototype.filter.bind(li3, function(item) {
-  return item.classList.contains('ativo');
-});
-
-filtrarLi();
-
-
-// ARGUMENTOS E BIND
-// Não precisamos passar todos os argumentos no momento do bind, podemos passar os mesmos na nova função no momento da execução da mesma.
+// MÉTODOS DE OBJECT
+// Object.create(obj, defineProperties) retorna um novo objeto que terá como protótipo o objeto do primeiro argumento.
 
 const carro2 = {
-  marca: 'Ford',
-  ano: 2018,
-  acelerar: function(aceleracao, tempo) {
-    return `${this.marca} acelerou ${aceleracao} em ${tempo}`;
+  rodas: 4,
+  init(marca) {
+    this.marca = marca;
+    return this;
+  },
+  acelerar() {
+    return `${this.marca} acelerou as ${this.rodas} rodas`;
+  },
+  buzinar() {
+    return this.marca + ' buzinou';
   }
 }
-carro2.acelerar(100, 20);
-// Ford acelerou 100 em 20
 
-const honda = {
-  marca: 'Honda',
-};
-const acelerarHonda = carro2.acelerar.bind(honda);
-acelerarHonda(200, 10);
-// Honda acelerou 200 em 10
+const honda = Object.create(carro2);
+honda.init('Honda').acelerar();
 
-// ARGUMENTOS COMUNS
-// Podemos passar argumentos padrões para uma função e retornar uma nova função.
 
-function imc(altura, peso) {
-  return peso / (altura * altura);
+// OBJECT.ASSIGN()
+// Object.assign(alvo, obj1, obj2) adiciona ao alvo as propriedades e métodos enumeráveis dos demais objetos. O assign irá modificar o objeto alvo.
+
+const funcaoAutomovel = {
+  acelerar() {
+    return 'acelerou';
+  },
+  buzinar() {
+    return 'buzinou';
+  },
 }
 
-const imc180 = imc.bind(null, 1.80);
+const moto = {
+  rodas: 2,
+  capacete: true,
+}
 
-imc(1.80, 70); // 21.6
-imc180(70); // 21.6
+const carro3 = {
+  rodas: 4,
+  mala: true,
+}
+
+Object.assign(moto, funcaoAutomovel);
+Object.assign(carro3, funcaoAutomovel);
+
+
+// OBJECT.DEFINEPROPERTIES()
+// Object.defineProperties(alvo, propriedades) adiciona ao alvo novas propriedades. A diferença aqui é a possibilidade de serem definidas as características dessas propriedades.
+
+const moto3 = {}
+Object.defineProperties(moto3, {
+  rodas: {
+    value: 2,
+    configurable: false, // impede deletar e mudança de valor
+    enumarable: true, // torna enumerável
+  },
+  capacete: {
+    value: true,
+    configurable: true,
+    writable: false, // impede mudança de valor
+  },
+})
+
+moto3.rodas = 4;
+delete moto3.capacete;
+moto3;
+// {rodas: 2}
+
+// Existe também o Object.defineProperty, para uma propriedade única.
+
+
+
+// GET E SET
+// É possível definirmos diferentes comportamentos para get e set de uma propriedade. Lembrando que ao acionarmos uma propriedade obj.propriedade, a função get é ativada e ao setarmos ob.propriedade = 'Valor' a função de set é ativada.
+
+const moto4 = {}
+Object.defineProperties(moto4, {
+  velocidade: {
+    get() {
+      return this._velocidade;
+    },
+    set(valor) {
+      this._velocidade = 'Velocidade ' + valor;
+    }
+  },
+})
+
+moto4.velocidade = 200;
+moto4.velocidade;
+// Velocidade 200
+
+
+// OBJECT.GETOWNPROPERTYDESCRIPTORS(OBJ)
+// Lista todos os métodos e propriedades de um objeto, com as suas devidas configurações.
+
+Object.getOwnPropertyDescriptors(Array);
+// Lista com métodos e propriedades e Array
+
+Object.getOwnPropertyDescriptors(Array.prototype);
+// Lista com métodos e propriedades do protótipo de Array
+
+Object.getOwnPropertyDescriptor(window, 'innerHeight');
+// Puxa de uma única propriedade
+
+
+// OBJECT.KEYS(OBJ), OBJECT.VALUES(OBJ) OBJECT.ENTRIES(OBJ)
+// Object.keys(obj) retorna uma array com as chaves de todas as propriedades diretas e enumeráveis do objeto. Object.values(obj) retorna uma array com os valores do objeto. Object.entries(obj) retorna uma array com array's contendo a chave e o valor.
+
+Object.keys(Array);
+// [] vazia, pois não possui propriedades enumeráveis
+
+const carro4 = {
+  marca: 'Ford',
+  ano: 2018,
+}
+Object.keys(carro4);
+// ['marca', 'ano']
+Object.values(carro4);
+// ['Ford', 2018]
+Object.entries(carro4);
+// [['marca', 'Ford'], ['ano', 2018]]
+
+// OBJECT.GETOWNPROPERTYNAMES(OBJ)
+// Retorna uma array com todas as propriedades diretas do objeto (não retorna as do protótipo).
+
+Object.getOwnPropertyNames(Array);
+// ['length', 'name', 'prototype', 'isArray', 'from', 'of']
+
+Object.getOwnPropertyNames(Array.prototype);
+// [..., 'filter', 'map', 'every', 'some', 'reduce', ...]
+
+const carro5 = {
+  marca: 'Ford',
+  ano: 2018,
+}
+Object.getOwnPropertyNames(carro5);
+// ['marca', 'ano']
+
+
+// OBJECT.GETPROTOTYPEOF() E OBJECT.IS()
+// Object.getPrototypeOf(), retorna o protótipo do objeto. Object.is(obj1, obj2) verifica se os objetos são iguais e retorna true ou false.
+
+
+const frutas = ['Banana', 'Pêra']
+Object.getPrototypeOf(frutas);
+Object.getPrototypeOf(''); // String
+
+const frutas1 = ['Banana', 'Pêra'];
+const frutas2 = ['Banana', 'Pêra'];
+
+Object.is(frutas1, frutas2); // false
+
+
+// OBJECT.FREEZE(), OBJECT.SEAL(), OBJECT.PREVENTEXTENSIONS()
+// Object.freeze() impede qualquer mudança nas propriedades. Object.seal() previne a adição de novas propriedades e impede que as atuais sejam deletadas. Object.preventExtensions() previne a adição de novas propriedades.
+
+const carro6 = {
+  marca: 'Ford',
+  ano: 2018,
+}
+Object.freeze(carro6);
+Object.seal(carro6);
+Object.preventExtensions(carro6);
+
+Object.isFrozen(carro6); // true
+Object.isSealed(carro6); // true
+Object.isExtensible(carro6); // true
+
+// PROPRIEDADES E MÉTODOS DO PROTÓTIPO
+// Já que tudo em JavaScript é objeto, as propriedades abaixo estão disponíveis em todos os objetos criados a partir de funções construtoras. {}.constructor retorna a função construtora do objeto.
+
+const frutas3 = ['Banana', 'Uva'];
+frutas.constructor; // Array
+
+const frase = 'Isso é uma String';
+frase.constructor; // String
+
+
+// {}.HASOWNPROPERTY('PROP') E {}.PROPERTYISENUMERABLE('PROP')
+// Verifica se possui a propriedade e retorna true. A propriedade deve ser direta do objeto e não do protótipo. O {}.propertyIsEnumerable() verifica se a propriedade é enumerável.
+
+const frutas4 = ['Banana', 'Uva'];
+
+frutas4.hasOwnProperty('map'); // false
+Array.hasOwnProperty('map'); // false
+Array.prototype.hasOwnProperty('map'); // true
+
+Array.prototype.propertyIsEnumerable('map'); // false
+window.propertyIsEnumerable('innerHeight'); // true
+
+
+// {}.ISPROTOTYPEOF(VALOR)
+// Verifica se é o protótipo do valor passado.
+
+const frutas5 = ['Banana', 'Uva'];
+
+Array.prototype.isPrototypeOf(frutas5); // true
+
+
+// {}.TOSTRING()
+// Retorna o tipo do objeto. O problema é toString() ser uma função dos protótipos de Array, String e mais. Por isso é comum utilizarmos a função direto do Object.prototype.toString.call(valor).
+
+const frutas6 = ['Banana', 'Uva'];
+frutas6.toString(); // 'Banana,Uva'
+typeof frutas6; // object
+Object.prototype.toString.call(frutas6); // [object Array]
+
+const frase2 = 'Uma String';
+frase2.toString(); // 'Uma String'
+typeof frase2; // string
+Object.prototype.toString.call(frase2); // [object String]
+
+const carro7 = {marca: 'Ford'};
+carro7.toString(); // [object Object]
+typeof carro7; // object
+Object.prototype.toString.call(carro7); // [object Object]
+
+const li = document.querySelectorAll('li');
+typeof li; // object
+Object.prototype.toString.call(li); // [object NodeList]
