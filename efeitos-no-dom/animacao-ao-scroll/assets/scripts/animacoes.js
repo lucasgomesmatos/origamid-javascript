@@ -1,6 +1,6 @@
 const initTabNav = () => {
-  const tabMenu = document.querySelectorAll(".js-tabmenu li");
-  const tabContent = document.querySelectorAll(".js-tabcontent section");
+  const tabMenu = document.querySelectorAll("[data-tab='menu'] li");
+  const tabContent = document.querySelectorAll("[data-tab='content'] section");
 
   if (tabMenu.length && tabContent.length) {
     tabContent[0].classList.add("ativo");
@@ -8,7 +8,9 @@ const initTabNav = () => {
       tabContent.forEach((item) => {
         item.classList.remove("ativo");
       });
-      tabContent[index].classList.add("ativo");
+
+      const direcao = tabContent[index].dataset.anime;
+      tabContent[index].classList.add("ativo", direcao);
     };
 
     tabMenu.forEach((itemMenu, index) => {
@@ -18,7 +20,9 @@ const initTabNav = () => {
 };
 
 const initAccordionList = () => {
-  const accordionList = document.querySelectorAll(".js-accordion dt");
+  const accordionList = document.querySelectorAll(
+    '[data-anime="accordion"] dt'
+  );
   const activeClass = "ativo";
 
   if (accordionList.length) {
@@ -36,7 +40,9 @@ const initAccordionList = () => {
 };
 
 const initScrollSuave = () => {
-  const liksInternos = document.querySelectorAll('.js-menu a[href^="#"');
+  const liksInternos = document.querySelectorAll(
+    '[data-menu="suave"] a[href^="#"'
+  );
 
   function scrollToSection(event) {
     event.preventDefault();
@@ -62,14 +68,14 @@ const initScrollSuave = () => {
 };
 
 const initScroll = () => {
-  const sections = document.querySelectorAll(".js-scroll");
+  const sections = document.querySelectorAll('[data-tab="scroll"]');
   if (sections.length) {
     const windowMetado = window.innerHeight * 0.6;
 
     function animaScroll() {
       sections.forEach((section) => {
         const sectionTop = section.getBoundingClientRect().top;
-        const isSectionVisible = (sectionTop - windowMetado) < 0;
+        const isSectionVisible = sectionTop - windowMetado < 0;
         if (isSectionVisible) {
           section.classList.add("ativo");
         } else {
