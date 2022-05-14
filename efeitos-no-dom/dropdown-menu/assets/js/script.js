@@ -5,6 +5,7 @@ import initAccordionList from "./modules/accordion-list.js"
 import initTooltip from "./modules/tooltip.js"
 
 import initModal from "./modules/modal.js"
+import initDropdownMenu from "./modules/dropdown-menu.js"
 
 
 
@@ -14,3 +15,4 @@ initAnimacaoScroll();
 initAccordionList();
 initModal();
 initTooltip();
+initDropdownMenu();
