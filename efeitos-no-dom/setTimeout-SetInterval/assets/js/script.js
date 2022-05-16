@@ -1,18 +1,44 @@
-import initTabNav from "./modules/tabnav.js";
-import initScrollSuave from "./modules/scroll-suave.js";
-import initAnimacaoScroll from "./modules/scroll-animacao.js"
-import initAccordionList from "./modules/accordion-list.js"
-import initTooltip from "./modules/tooltip.js"
 
-import initModal from "./modules/modal.js"
-import initDropdownMenu from "./modules/dropdown-menu.js"
+// Mude a cor da tela para azul e depois para vermelho a cada 2s.
+
+// const mudar = setInterval(mudarClasse, 2000);
+
+// function mudarClasse() {
+//   document.body.classList.toggle('active')
+// }
 
 
 
-initTabNav();
-initScrollSuave();
-initAnimacaoScroll();
-initAccordionList();
-initModal();
-initTooltip();
-initDropdownMenu();
+// Crie um cronometro utilizando o setInterval. Deve ser possível
+// iniciar, pausar e resetar (duplo clique no pausar).
+
+const iniciar = document.querySelector('.iniciar');
+const pausar = document.querySelector('.pausar');
+const tempo = document.querySelector('.tempo');
+
+iniciar.addEventListener('click', iniciarTempo);
+pausar.addEventListener('click', pausarTempo);
+pausar.addEventListener('dblclick', resetarTempo);
+
+let i = 0;
+let timer;
+
+function iniciarTempo() {
+  timer = setInterval(() => {
+    tempo.innerText = i++;
+  }, 100)
+
+  iniciar.setAttribute('disabled', '');
+}
+
+function pausarTempo() {
+  clearInterval(timer);
+  iniciar.removeAttribute('disabled', '')
+}
+
+
+function resetarTempo() {
+  clearInterval(timer);
+  tempo.innerText = 0;
+  i = 0;
+}
