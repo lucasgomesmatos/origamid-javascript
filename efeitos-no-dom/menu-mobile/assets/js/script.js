@@ -7,7 +7,7 @@ import initTooltip from "./modules/tooltip.js"
 import initModal from "./modules/modal.js"
 import initDropdownMenu from "./modules/dropdown-menu.js"
 
-import menuMobile from "./modules/menu-mobile.js"
+import initMenuMobile from "./modules/menu-mobile.js"
 
 
 initTabNav();
@@ -17,4 +17,4 @@ initAccordionList();
 initModal();
 initTooltip();
 initDropdownMenu();
-menuMobile();
+initMenuMobile();
