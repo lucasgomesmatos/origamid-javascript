@@ -33,12 +33,11 @@ function iniciarTempo() {
 
 function pausarTempo() {
   clearInterval(timer);
-  iniciar.removeAttribute('disabled', '')
+  iniciar.removeAttribute('disabled')
 }
 
 
 function resetarTempo() {
-  clearInterval(timer);
   tempo.innerText = 0;
   i = 0;
 }
