@@ -72,9 +72,9 @@ function loop(texto) {
 setInterval(loop, 1000, 'Passou 1s');
 
 // loop a cada segundo
-let i = 0;
+let j = 0;
 setInterval(() => {
-  console.log(i++);
+  console.log(j++);
 }, 1000);
 
 
