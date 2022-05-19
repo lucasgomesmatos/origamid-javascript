@@ -1,74 +1,40 @@
-// Dataset
+// Date Object
+
+// NEW DATE()
+// O construtor Date cria um objeto contendo valores como mês, dia, ano, horário e mais. A data é baseada no relógio interno do computador.
+
+const agora = new Date();
+agora;
+// Semana Mês Dia Ano HH:MM:SS GMT
+agora.getDate() // Dia
+agora.getDay() // Dia da Semana ex: 5 = Fri
+agora.getMonth() // Número dia mês
+agora.getFullYear() // Ano
+agora.getHours() // Hora
+agora.getMinutes() // Minutos
+agora.getTime() // ms desde 1970
+agora.getUTCHours() - 3 // Brasília
+
+// GETTIME()
+// O método getTime() mostra o tempo total em milessegundos desde o dia 1 de janeiro de 1970.
+const agora2 = new Date();
+agora2.getTime(); //
+
+// total de dias desde 1 de janeiro de 1970
+const diasPassados = agora.getTime() / (24 * 60 * 60 * 1000);
 
 
-// HTMLELEMENT
-// Todo elemento HTML do DOM herda propriedades e métodos do construtor HTMLElement.
+// DIAS ATÉ
+// Podemos criar um objeto com uma data no futuro, passando uma string com o valor da data.
 
-const h1 = document.querySelector('h1');
-Object.prototype.toString.call(h1); // [object HTMLHeadingElement]
-// HTMLHeadingElement > HTMLElement > Element > Node > EventTarget > Object
+const agora3 = new Date();
+const promocao = new Date('December 24 2018 23:59');
 
+function converterEmDias(time) {
+  return time / (24 * 60 * 60 * 1000);
+}
 
-// DATASET
-// dataset é uma propriedade de HTMLElement, essa propriedade é um objeto do tipo DOMStringMap. Dentro desse objeto existe uma coleção de chave / valor, com todos os atributos do elemento html que começarem com data-.
+const diasAgora = converterEmDias(agora);
+const diasPromocao = converterEmDias(promocao);
 
-`<div data-cor="azul" data-width="500">Uma Div</div>
-<span data-anime="left" data-tempo="2000">Um Span</span> 
-
-// Ambos os valores selecionam a mesma div acima.
-let div = document.querySelector('div');
-div = document.querySelector('[data-cor]');
-div = document.querySelector('[data-cor="azul"]');
-
-div.dataset;
-// DOMStringMap {cor: "azul", width: "500"}
-div.dataset.cor; // 'azul'
-div.dataset.width; // '500'
-div.dataset.tempo = 1000;
-// DOMStringMap {cor: "azul", width: "500", tempo: "1000"}
-
-`
-
-// DATA ATRIBUTES
-// Os atributos e valores que começarem com data- poderão ser utilizados como forma de configuração de plugins e interações DOM / JS.
-
-`
-<div data-anima="left" data-tempo="1000">Div 1</div>
-<div data-anima="right" data-tempo="2000">Div 2</div>
-
-`
-
-const divs = document.querySelectorAll('[data-anima]');
-divs.forEach((div) => {
-  div.classList.add(div.dataset.anima);
-});
-
-// adiciona em cada div
-// uma classe com o mesmo nome
-// que o valor de data
-
-
-// DATA VS CLASS
-// A vantagem de se utilizar data atributes é que torna mais fácil evitarmos conflitos com estilos do CSS. Além de deixar a estrutura da tag mais organizada.
-
-`
-<div data-anima="left" data-tempo="1000">Div 1</div>
-<div class="anima-left tempo-1000">Div 2</div>
-
-`
-
-// NOMENCLATURA
-// Por padrão o JavaScript não aceita - (traço) como caracter válido para nomear propriedades. Então qualquer traço será removido e a letra seguinte transformada em maiúscula.
-
-`
-<div data-anima-scroll="left">Div 1</div>
-`
-
-const div = document.querySelector('[data-anima-scroll]');
-div.dataset;
-// {animaScroll: 'left'}
-div.dataset.animaScroll; // left
-div.dataset.tempoTotal = 1000;
-// Na div vira data-tempo-total="1000"
-
-delete div.dataset.animaScroll; // remove o atributo
+const faltam = diasPromocao - diasAgora;
