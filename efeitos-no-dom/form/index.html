@@ -35,31 +35,25 @@
     textarea {
       height: 150px;
     }
+
+    .invalido {
+      border-color: #ff6347;
+    }
   </style>
 </head>
 <body>
   <form name="contato" id="contato">
     <label for="nome">Nome</label>
-    <input type="text" name="nome" id="nome">
+    <input type="text" name="nome" id="nome" required>
+    <span class="texto"></span>
     <label for="e-mail">E-mail</label>
-    <input type="email" name="e-mail" id="e-mail">
+    <input type="email" name="e-mail" id="e-mail" required>
+    <span class="texto"></span>
     <label for="mensagem">Mensagem</label>
     <textarea name="mensagem" id="mensagem" cols="30" rows="10"></textarea>
   </form>
-  <span class="texto"></span>
-  <script>
-    const contato = document.querySelector('#contato');
-    const texto = document.querySelector('.texto');
-    const eventUser = ['keyup', 'change']
+  
 
-    function handleKeyUp(event) {
-      console.log(contato.elements.nome.value)
-      texto.innerText = event.target.value;
-    }
-    eventUser.forEach(event => {
-      contato.addEventListener(event, handleKeyUp)
-    })
-    
-  </script>
+  <script src="./script.js"></script>
 </body>
 </html>
