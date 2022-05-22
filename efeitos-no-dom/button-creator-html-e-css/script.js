@@ -39,9 +39,27 @@ function handleChange(event) {
   const name = event.target.name;
   const value = event.target.value;
   handleStyle[name](value);
+  saveValues(name, value);
   showCss();
 }
 
-function showCss(){
-  cssText.innerHTML = `<span>${btn.style.cssText.split('; ').join(';<span></span>') }`;
+function saveValues(name, value) {
+  localStorage[name] = value;
+}
+
+function setValues() {
+  const properties = Object.keys(localStorage);
+  properties.forEach(pros => {
+    handleStyle[pros](localStorage[pros]);
+    controles.elements[pros].value = localStorage[pros];
+  });
+  showCss();
+}
+
+setValues();
+
+function showCss() {
+  cssText.innerHTML = `<span>${btn.style.cssText
+    .split("; ")
+    .join(";<span></span>")}`;
 }
