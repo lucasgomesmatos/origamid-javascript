@@ -43,5 +43,5 @@ function handleChange(event) {
 }
 
 function showCss(){
-  cssText.innerText =  btn.style.cssText.split('; ').join(';<span></span>');
+  cssText.innerHTML = `<span>${btn.style.cssText.split('; ').join(';<span></span>') }`;
 }
