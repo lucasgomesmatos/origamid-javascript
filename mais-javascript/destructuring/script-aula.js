@@ -1,82 +1,122 @@
-// Function Expression
+// DESTRUCTURING
 
+// Permite a desestruturação de Arrays e Objetos. Atribuindo suas propriedades à novas variáveis.
 
-// FUNCTION DECLARATION
-// São duas as formas mais comuns de declararmos uma função. A que utilizamos até o momento é chamado de Function Declaration.
-
-function somar(a,b) {
-  return a + b;
+const carro = {
+  marca: 'Fiat',
+  ano: 2018,
+  portas: 4,
 }
 
-somar(4,2); // 6
+const {marca, ano} = carro;
 
-// FUNCTION EXPRESSION
-// É criada a partir da declaração de uma variável, na qual assinalamos uma função. Esta função pode ser anônima ou nomeada. A mesma poderá ser ativada através da variável assinalada.
+console.log(marca); // Fiat
+console.log(ano); // 2018
 
-const somar = function(a,b) {
-  return a + b;
+
+// DESTRUCTURING OBJECTS 
+// A desestruturação irá facilitar a manipulação de dados. Principalmente quando temos uma grande profundidade de objetos.
+
+// const cliente = {
+//   nome: 'Andre',
+//   compras: {
+//     digitais: {
+//       livros: ['Livro 1', 'Livro 2'],
+//       videos: ['Video JS', 'Video HTML']
+//     },
+//     fisicas: {
+//       cadernos: ['Caderno 1']
+//     }
+//   }
+// }
+
+// console.log(cliente.compras.digitais.livros);
+// console.log(cliente.compras.digitais.videos);
+
+// const {livros, videos} = cliente.compras.digitais;
+
+// console.log(livros);
+// console.log(videos);
+
+// NESTING
+// É possível aninhar uma desestruturação dentro de outra.
+
+const cliente = {
+  nome: 'Andre',
+  compras: {
+    digitais: {
+      livros: ['Livro 1', 'Livro 2'],
+      videos: ['Video JS', 'Video HTML']
+    },
+    fisicas: {
+      cadernos: ['Caderno 1']
+    }
+  }
 }
 
-somar(4,2); // 6
+const {fisicas, digitais, digitais: {livros, videos}} = cliente.compras;
 
-// HOISTING
-// Function Declarations são completamente definidas no momento do hoisting, já function expressions apenas serão definidas no momento da execução. Por isso a ordem da declaração de uma FE possui importância.
+console.log(fisicas);
+console.log(livros);
+console.log(videos);
+console.log(digitais);
 
-somar(4,2); // 6
-dividir(4,2); // Erro
 
-function somar(a,b) {
-  return a + b;
+// NOME DAS VARIÁVEIS
+// É necessário indicar o nome da propriedade que você deseja desestruturar de um objeto. É possível mudar o nome da variável final com:
+
+const cliente2 = {
+  nome: 'Andre',
+  compras: 10,
 }
-const dividir = function(a,b) {
-  return a / b;
+
+const {nome, compras} = cliente2;
+// ou
+const {nome: nomeCliente, compras: comprasCliente} = cliente2;
+
+// VALOR INICIAL
+// Caso a propriedade não exista o valor padrão dela será undefined. É possível modificar este valor no momento da desestruturação.
+
+const cliente3 = {
+  nome: 'Andre',
+  compras: 10,
 }
 
+const {nome2, compras3, email = 'email@gmail.com', cpf} = cliente;
+console.log(email) // email@gmail.com
+console.log(cpf) // undefined
 
-// ARROW FUNCTION
-// Podemos criar utilizando arrow functions.
-const somar = (a, b) => a + b;
-somar(4,2); // 6
 
-const quadrado = a => a * a;
-quadrado(4); // 16
+// DESTRUCTURING ARRAYS
+// Para desestruturar array's você deve colocar as variáveis entre [] colchetes.
 
-// ESTRUTURA / PREFERÊNCIA
-// Geralmente o uso entre expression / declaration é uma questão de preferência. Function Expression força a criação da mesma antes de sua ativação, o que pode contribuir para um código mais estruturado.
+const frutas = ['Banana', 'Uva', 'Morango'];
 
-// Declarada como método de window
-// vaza o escopo de bloco, como se
-// fosse criada utilizando var
-function somar(a,b) {
-  return a + b;
+const primeiraFruta = frutas[0];
+const segundaFruta = frutas[1];
+const terceiraFruta = frutas[2];
+
+// Com destructuring
+const [primeira, segunda, terceira] = frutas;
+
+// DECLARAÇÃO DE VARIÁVEIS
+// A desestruturação pode servir para declararmos uma sequência de variáveis.
+
+// const primeiro = 'Item 1';
+// const segundo = 'Item 2';
+// const terceiro = 'Item 3';
+// // ou
+// const [primeiro, segundo, terceiro] = ['Item 1', 'Item 2', 'Item 3']; 
+
+// ARGUMENTO DESESTRUTURADO
+// Se uma função espera receber como argumento um objeto, podemos desestruturar ele no momento da declaração.
+
+function handleKeyboard(event) {
+  console.log(event.key);
 }
-const dividir2 = (a,b) => a / b;
+// Com Destructuring
+function handleKeyboard({key}) {
+  console.log(key);
+}
 
-somar(4,2);
-dividir2(4,2);
-
-// IIFE - IMMEDIATELY INVOKED FUNCTION EXPRESSION
-// Antes da introdução de modules e da implementação do escopo de bloco, a forma mais comum utilizada para isolarmos o escopo de um código JavaScript era através das chamadas IIFE's.
-
-var instrumento = 'Violão';
-
-(function() {
-  // código isolado do escopo global
-  var instrumento = 'Guitarra';
-  console.log(instrumento); // Guitarra
-})();
-
-console.log(instrumento); // Violão
-
-
-// IIFE - ARROW FUNCTION
-// Compiladores ainda transformam modules em IIFE's para manter a compatibilidade com browsers antigos.
-
-const instrumento = 'Violão';
-
-(() => {
-  const instrumento = 'Guitarra';
-  console.log(instrumento); // Guitarra
-})();
-
-console.log(instrumento); // Violão
+document.addEventListener('keyup', handleKeyboard);
