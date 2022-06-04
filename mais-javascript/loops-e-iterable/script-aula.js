@@ -1,111 +1,91 @@
-// Rest e Spread
+// Loops e Iterable
 
-// PARÂMETROS
-// Nem todos os parâmetros que definimos são utilizados quando uma função é executada, devido a falta de argumentos. Por isso é importante nos prepararmos para caso estes argumentos não sejam declarados.
+// Iterable
+// São objetos que possuem o método [Symbol.iterator], geralmente no protótipo, é dentro dele que a função que lida com a iteração será definida. Ex: Array, String, NodeList, boa parte das Array-Like e outros.
 
-// function perimetroForma(lado, totalLados) {
-//   return lado * totalLados;
-// }
-
-// perimetroForma(10, 4); // 40
-// perimetroForma(10); // NaN
-
-
-
-// PARÂMETRO PADRÃO (DEFAULT) ES5
-// Antes do ES6 a forma de definirmos um valor padrão para um parâmetro, era através de uma expressão.
-
-function perimetroForma(lado, totalLados) {
-  totalLados = totalLados || 4; // se não for definido, será igual à 4
-  return lado * totalLados;
-}
-
-perimetroForma(10, 3); // 30
-perimetroForma(10); // 40
-
-
-// PARÂMETRO PADRÃO (DEFAULT) ES6+
-// Com o ES6 é possível definirmos o valor de um parâmetro direto na declaração do mesmo, caso o argumento não seja passado no momento da execução.
-
-function perimetroForma(lado, totalLados = 4) {
-  return lado * totalLados;
-}
-
-perimetroForma(10, 5); // 50
-perimetroForma(10); // 40
-
-
-// ARGUMENTS
-// A palavra chave arguments é um objeto Array-like criado dentro da função. Esse objeto contém os valores dos argumentos.
-
-function perimetroForma(lado, totalLados = 4) {
-  console.log(arguments)
-  return lado * totalLados;
-}
-
-perimetroForma(10);
-perimetroForma(10, 4, 20);
-
-
-// PARÂMETRO REST
-// É possível declararmos uma parâmetro utilizando ... na frente do mesmo. Assim todos os argumentos que passarmos na ativação da função, ficarão dentro do parâmetro.
-
-function anunciarGanhadores(...ganhadores) {
-  ganhadores.forEach(ganhador => {
-    console.log(ganhador + ' ganhou.')
-  });
-}
-
-anunciarGanhadores('Pedro', 'Marta', 'Maria');
-
-// ÚNICO REST
-// Só é possível ter um único parâmetro rest e ele deve ser o último.
-
-function anunciarGanhadores(premio, ...ganhadores) {
-  ganhadores.forEach(ganhador => {
-    console.log(ganhador + ' ganhou um ' + premio)
-  });
-}
-
-anunciarGanhadores('Carro', 'Pedro', 'Marta', 'Maria');
-
-
-// REST VS ARGUMENTS
-// Apesar de parecidos o parâmetro rest e a palavra arguments possuem grandes diferenças. Sendo rest uma array real e arguments um objeto Array-like.
-
-function anunciarGanhadores(premio, ...ganhadores) {
-  console.log(ganhadores);
-  console.log(arguments);
-}
-
-anunciarGanhadores('Carro', 'Pedro', 'Marta', 'Maria');
-
-// OPERADOR SPREAD
-// Assim como o rest, o operador Spread também utiliza os ... para ser ativado. O spread irá distribuir um item iterável, um por um.
-
-const frutas = ['Banana', 'Uva', 'Morango'];
-const legumes = ['Cenoura', 'Batata'];
-
-const comidas = [...frutas, 'Pizza', ...legumes];
-
-
-// SPREAD ARGUMENT
-// O Spread pode ser muito útil para funções que recebem uma lista de argumentos ao invés de uma array.
-
-const numeroMaximo = Math.max(4,5,20,10,30,2,33,5); // 33
-
-const listaNumeros = [1,13,21,12,55,2,3,43];
-const numeroMaximoSpread = Math.max(...listaNumeros);
-
-
-// TRANSFORMAR EM ARRAY
-// É possível transformar itens iteráveis em uma array real com o spread.
-
-const btns = document.querySelectorAll('button');
-const btnsArray = [...btns];
-
+const frutas = ['Banana', 'Morango', 'Uva'];
 const frase = 'Isso é JavaScript';
-const fraseArray = [...frase];
+
+fetch('https://pokeapi.co/api/v2/pokemon/')
+.then(({headers}) => console.log(headers));
+
+// FOR...OF
+// É possível fazemos um loop por cada iteração do objeto iterável utilizando o for...of. Além deste loop podemos também utilizar o Spread Operator nos mesmos.
 
 
+for(const fruta of frutas) {
+  console.log(fruta);
+}
 
+for(const char of frase) {
+  console.log(char);
+}
+
+// SPREAD E FOR...OF
+// Com o for loop podemos manipular cada um dos elementos do objeto iterável.
+
+const buttons = document.querySelectorAll('button');
+
+for(const btn of buttons) {
+  btn.style.background = 'blue';
+}
+
+console.log(...buttons);
+
+// APENAS ITERÁVEIS
+// O for...of não irá funcionar em um objeto comum que não seja iterável.
+
+const carro = {
+  marca: 'Honda',
+  ano: 2018,
+}
+
+// Erro, não é Iterável
+for(const propriedade of carro) {
+  console.log(propriedade);
+}
+
+
+// FOR...IN
+// Este loop irá retornar a chave (key) de todas as propriedades enumeráveis (que não sejam símbolos) de um objeto.
+
+const carro2 = {
+  marca: 'Honda',
+  ano: 2018,
+}
+
+for(const propriedade in carro2) {
+  console.log(propriedade);
+}
+
+
+// ARRAYS E FOR...IN
+// Uma Array é um objeto, porém a chave de cada valor é igual ao seu index.
+
+
+for(const index in frutas) {
+  console.log(index);
+}
+
+for(const index in frutas) {
+  console.log(frutas[index]);
+}
+
+// CHAVE E VALOR
+// Utilizando o for...in podemos retornar todas as chaves e valores de propriedades enumeráveis.
+
+const btn = document.querySelector('button');
+const btnStyles = getComputedStyle(btn);
+
+for(const style in btnStyles) {
+  console.log(`${style}: ${btnStyles[style]}`);
+}
+
+
+// DO / WHILE
+// Outro tipo de loop é o Do / While. Não é muito utilizado.
+
+let i = 0;
+do {
+  console.log(i++)
+} while (i <= 5);
